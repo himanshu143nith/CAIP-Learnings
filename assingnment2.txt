@@ -1,0 +1,79 @@
+#############################
+Assignment: 2
+Submitted by: Himanshu Sharma
+#############################
+
+#1
+##Step 1: Create a csv file using a cat command 
+> cat <<'EOF' > ques1.csv
+"itemname","stock","price"
+101,4343,393493
+102,3434,984859
+103,9834,938433
+104,9344,303000
+105,7347,858585
+106,9394,938493
+107,9495,934893
+108,9384,904854
+109,8484,394394
+110,7378,773478
+EOF
+##Step2: Take header of ques1.csv and name that file ques1_header
+> head -n 1 ques1.csv > ques1_header
+##Step3: Sort ques1.csv file excluding header on stock and create ques1_sort_stock 
+> tail -n+2 ques1.csv | sort -t ',' -k2 > ques1_sort_stock
+##Step4: Sort ques1.csv file on price excluding header and create ques1_sort_price
+> tail -n+2 ques1.csv | sort -t ',' -k3 > ques1_sort_price
+##Step5: Merge ques1_header with two sorted files seprately and create two new files ques1_sorted_stock and ques1_sorted_price respectively. 
+> cat ques1_header ques1_sort_stock > ques1_sorted_stock
+> cat ques1_header ques1_sort_price > ques1_sorted_price
+
+############################
+
+#2
+##Step 1: Execute the ls command on home directory and store the result in ques2 file
+> ls -l ~ > ques2
+##Step 2: Create a awk script to create the desired output and name it ques2.awk.
+BEGIN{
+        printf "Files with size in bytes\n"
+        printf "\n========================\n"
+        printf "\nNo.   Filename        size\n"
+        fcount = 1
+        total_files = 0
+        total_size =  0
+}
+{
+        printf "%-8d%-16s%d\n", fcount, $9, $5
+        total_size = total_size + $5
+        fcount = fcount + 1
+}
+END{
+        printf "\n========================\n"
+        printf "\nTotal files = %d\n",fcount - 1
+        printf "Total size = %d\n",total_size
+        printf "\n========================\n"
+}
+##Step 3: Execute the awk command to display the result of the script
+> awk -F ' ' -f ques2.awk ques2 
+##Step 4: Store the result in a new file named ques2ans and display the file
+> awk -f ' ' -f ques2.awk ques2 > ques2ans
+> cat ques2ans
+############################
+
+#3
+#Step 1: Create a file named ques3.sh
+> touch ques3.sh
+#Step 2: Change permissions for this to execute
+> chmod +x ques3.sh
+#Step 3: Read a string, reverse it and check if both the strings are still same. It is a palindrome if true else print not a palindrome
+read -p "Enter string:" palind
+echo $palind
+rpalind=$(echo $palind | rev)
+if [[ "$rpalind" == "$palind" ]]; then
+        echo "It is a Palindrome"
+else
+        echo "Not a Palindrome"
+fi
+#Step 4: Execute the shell script
+> ./ques3.sh
+#############################
